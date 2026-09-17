@@ -1,0 +1,84 @@
+/* ============================================================
+   LIFTWORK — cookie consent
+   precisionist industrial plate: hard edges, flat planes,
+   one rust accent. No rounded corners, no soft shadows.
+   ============================================================ */
+.lw-consent, .lw-prefs{
+  --chalk:#EFEBE4; --chalk-2:#DFD8CC; --chalk-3:#CFC6B7;
+  --slate:#232C35; --slate-deep:#151B21; --slate-mid:#3D4A57;
+  --rust:#A84B22; --rust-light:#E0794A;
+  font-family:'Archivo','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+/* ---- banner ---- */
+.lw-consent{
+  position:fixed;inset:auto 0 0 0;z-index:9000;
+  background:var(--chalk);border-top:2px solid var(--slate-deep);
+  padding:clamp(1.1rem,2.5vw,1.6rem) clamp(1.25rem,5vw,4.5rem);
+  box-shadow:0 -14px 28px rgba(21,27,33,.09);
+  transform:translateY(100%);transition:transform .32s cubic-bezier(.2,.7,.3,1);
+}
+.lw-consent[data-open="true"]{transform:none}
+@media (prefers-reduced-motion:reduce){.lw-consent{transition:none}}
+.lw-consent__inner{max-width:1280px;margin:0 auto;display:grid;gap:1.1rem 3rem;align-items:center}
+@media (min-width:900px){.lw-consent__inner{grid-template-columns:1fr auto}}
+.lw-consent__title{font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);margin:0 0 .55rem}
+.lw-consent__text{margin:0;font-size:.96rem;line-height:1.55;color:var(--slate);max-width:64ch}
+.lw-consent__text a{color:var(--rust);text-decoration:none;border-bottom:1px solid rgba(168,75,34,.4)}
+.lw-consent__text a:hover{border-bottom-color:var(--rust)}
+.lw-consent__actions{display:flex;flex-wrap:wrap;gap:.7rem;align-items:stretch}
+
+/* accept and reject carry identical weight — required, and the thing
+   regulators penalise most often when it is not true */
+.lw-btn{
+  font:inherit;font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:.85rem 1.4rem;border:2px solid var(--slate-deep);background:var(--chalk);
+  color:var(--slate-deep);cursor:pointer;border-radius:0;white-space:nowrap;
+  transition:background .15s ease,color .15s ease;
+}
+.lw-btn:hover{background:var(--slate-deep);color:var(--chalk)}
+.lw-btn--primary{background:var(--slate-deep);color:var(--chalk)}
+.lw-btn--primary:hover{background:var(--rust);border-color:var(--rust);color:#fff}
+.lw-btn--quiet{border-color:transparent;background:none;text-decoration:underline;text-underline-offset:4px}
+.lw-btn--quiet:hover{background:none;color:var(--rust)}
+.lw-btn:focus-visible{outline:2px solid var(--rust);outline-offset:3px}
+
+/* ---- preferences dialog ---- */
+.lw-prefs{border:2px solid var(--slate-deep);background:var(--chalk);padding:0;margin:auto;
+  max-width:40rem;width:calc(100% - 2rem);color:var(--slate-deep)}
+.lw-prefs::backdrop{background:rgba(21,27,33,.55)}
+.lw-prefs__head{padding:1.5rem clamp(1.25rem,3vw,2rem) 1.1rem;border-bottom:2px solid var(--slate-deep)}
+.lw-prefs__head h2{margin:0;font-size:1.25rem;font-weight:800;letter-spacing:.005em;text-transform:uppercase;line-height:1.15}
+.lw-prefs__head p{margin:.7rem 0 0;font-size:.92rem;line-height:1.5;color:var(--slate-mid)}
+.lw-prefs__body{padding:.4rem clamp(1.25rem,3vw,2rem) 1rem;max-height:52vh;overflow-y:auto}
+.lw-cat{padding:1.15rem 0;border-bottom:1px solid var(--chalk-3);display:grid;grid-template-columns:1fr auto;gap:.6rem 1.4rem;align-items:start}
+.lw-cat:last-child{border-bottom:0}
+.lw-cat h3{margin:0;font-size:.95rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.lw-cat p{margin:.4rem 0 0;font-size:.88rem;line-height:1.5;color:var(--slate-mid);grid-column:1/-1}
+.lw-cat__locked{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--slate-mid);align-self:center}
+
+/* hard-edged switch, keyboard operable because it is a real checkbox */
+.lw-switch{position:relative;display:inline-flex;align-items:center;cursor:pointer}
+.lw-switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.lw-switch__track{width:52px;height:26px;border:2px solid var(--slate-deep);background:var(--chalk-2);
+  display:block;transition:background .16s ease}
+.lw-switch__thumb{position:absolute;top:2px;left:2px;width:22px;height:22px;background:var(--slate-deep);
+  transition:transform .16s ease,background .16s ease;pointer-events:none}
+.lw-switch input:checked ~ .lw-switch__track{background:var(--rust)}
+.lw-switch input:checked ~ .lw-switch__thumb{transform:translateX(26px);background:#fff}
+.lw-switch input:focus-visible ~ .lw-switch__track{outline:2px solid var(--rust);outline-offset:3px}
+.lw-prefs__foot{padding:1.1rem clamp(1.25rem,3vw,2rem) 1.4rem;border-top:2px solid var(--slate-deep);
+  display:flex;flex-wrap:wrap;gap:.6rem;justify-content:flex-end;align-items:center}
+.lw-prefs__foot .lw-btn{padding:.8rem 1rem;font-size:.72rem;letter-spacing:.11em}
+.lw-prefs__foot .lw-btn--primary{margin-left:auto}
+
+/* ---- GPC notice ---- */
+.lw-gpc{margin-top:.8rem;padding:.7rem .9rem;border-left:3px solid var(--rust);background:var(--chalk-2);
+  font-size:.88rem;line-height:1.5;color:var(--slate)}
+
+@media (max-width:560px){
+  .lw-consent__actions{flex-direction:column}
+  .lw-btn{width:100%;text-align:center}
+  .lw-prefs__foot{justify-content:stretch}
+  .lw-prefs__foot .lw-btn{flex:1}
+}
